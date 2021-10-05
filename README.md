@@ -19,9 +19,14 @@ The main components of the system are as follows:
 
 Models
 ------------
+If used with Google Colab, notebooks can be run directly as they are. The only requirement is to have the *json_train*, *json_develop* and *json_test* folders in the user's personal Google Drive.
+
+If run on a local machine, please use the following steps:
+
 1) Create a new virtual environment and install dependencies from *model_training_requirements.txt*.
-2) Activate the virtual environment and run the desired notebook to replicate the experiment results. All base models and their corresponding tokenizers are imported from the open-source HuggingFace library (https://huggingface.co/transformers/index.html) directly into the jupyter notebooks.
-3) Random seed can be adjusted at the beginning of the notebook to ensure replicability of results.
+2) Make sure that *json_train*, *json_develop* and *json_test* are located in the root project directory alongside the notebooks. 
+3) Activate the virtual environment and run the desired notebook to replicate the experiment results. All base models and their corresponding tokenizers are imported from the open-source HuggingFace library (https://huggingface.co/transformers/index.html) directly into the jupyter notebooks.
+4) Random seed can be adjusted at the beginning of the notebook to ensure replicability of results.
 
 The chart below illustrates the machine learning pipeline used for all experiments and follows the structure of the notebooks.
 ![alt text](https://github.com/dhirlea/contextual_sentence_classification/blob/main/Sustainability%20Transformer%20Pipeline.png)
