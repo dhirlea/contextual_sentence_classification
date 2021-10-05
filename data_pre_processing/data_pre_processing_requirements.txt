@@ -1,0 +1,6 @@
+# Dependencies for pdf-to-json conversion. Only work on Linux OS distributions including WSL running Ubuntu 20.04
+python==3.7.0
+poppler-utils==0.62.0
+spacy==2.0.12 
+python -m spacy download en_core_web_sm
+spacy-langdetect==0.1.2
