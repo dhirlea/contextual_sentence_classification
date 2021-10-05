@@ -28,7 +28,7 @@ The chart below illustrates the machine learning pipeline used for all experimen
 License
 ------------
 
-The Dataset is released for non-commercial research and educational purposes under the following licence agreement:
+The Dataset used in the project is released for non-commercial research and educational purposes under the following licence agreement:
 
 1. By downloading this dataset and licence, this licence agreement is entered into, effective this date, between you, the Licensee, and the Leonardo Centre on Business for Society, the Licensor.
 2. Copyright of the entire licensed dataset is held by the Licensor. No ownership or interest in the dataset is transferred to the Licensee.
