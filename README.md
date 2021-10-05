@@ -23,3 +23,16 @@ Models
 
 The chart below illustrates the machine learning pipeline used for all experiments and follows the structure of the notebooks.
 ![alt text](https://github.com/dhirlea/contextual_sentence_classification/blob/main/Sustainability%20Transformer%20Pipeline.png)
+
+
+License
+------------
+
+The Dataset is released for non-commercial research and educational purposes under the following licence agreement:
+
+1. By downloading this dataset and licence, this licence agreement is entered into, effective this date, between you, the Licensee, and the Leonardo Centre on Business for Society, the Licensor.
+2. Copyright of the entire licensed dataset is held by the Licensor. No ownership or interest in the dataset is transferred to the Licensee.
+3. The Licensor hereby grants the Licensee a non-exclusive non-transferable right to use the licensed dataset for non-commercial research and educational purposes.
+Non-commercial purposes exclude without limitation any use of the licensed dataset or information derived from the dataset for or as part of a product or service which is sold, offered for sale, licensed, leased or rented.
+4. The Licensor grants the Licensee this right to use the licensed dataset ‘as is’. Licensor does not make, and expressly disclaims, any express or implied warranties, representations or endorsements of any kind whatsoever.
+5. This Agreement shall be governed by and construed in accordance with the laws of England and the English courts shall have exclusive jurisdiction.
