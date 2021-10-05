@@ -5,15 +5,17 @@ This repository contains code underlying the "Contextual Sentence Classification
 
 The code provided in this repository is divided in two parts: *data_pre_processing* and *models*. *data_pre_processing* contains 2 python scripts for downloading a set of 45 company reports, converting these into the required json format and assigning initiatives and SDGs to individual sentences. The code under *models* can be run as jupyter notebooks on a local machine after the project dependencies have been installed or using Google Colab (https://colab.research.google.com). We recommend creating separate virtual environments for *data_pre_processing*  and *models* as they require different versions of python to be installed.
 
-Data Pre-processing
+Data Pre-processing (Requires Linux Distribution such as Ubuntu 20.04 or WSL2 with Linux distribution installed)
 ------------
 
 The main components of the system are as follows:
 
 1) Download data folders into root project directory from https://drive.google.com/drive/folders/1cknXPeJ_-NLqMGBAj6EXZG5WR3pSHgYN?usp=sharing. These contain information required to assign sentence labels from company PDF reports.
-2) Install prerequisites from *data_pre_processing_requirements.txt* in a designated virtual environment and activate the environment. It is important to install the correct version of spacy 2.0.12 in order to parse the PDFs in the correct order. 
-3) Download pdfs for each dataset by running "python download_pdf.py <data_dir> <pdf_dir>". For example "python download_pdf.py data_train pdf_train" can be used to download the 25 PDFs in the training set. Similar commands must be run for the development and test sets.
-4) Convert PDFs to json format and assign sentence labels by running "python pdf_to_json.py <input_pdf_dir> <output_json_dir> <data_dir>". For example "python pdf_to_json.py pdf_train json_train data_train" converts the training dataset into the required file format. Similar commands must be run for the development and test sets.
+2) Install poppler-utils library via command line "sudo apt-get install poppler-utils"
+3) Install prerequisites from *data_pre_processing_requirements.txt* in a designated virtual environment and activate the environment. It is important to install the correct version of spacy 2.0.12 in order to parse the PDFs in the correct order. 
+4) Run "python -m spacy download en_core_web_sm" in the command line to download the spacy English language package.
+5) Download pdfs for each dataset by running "python download_pdf.py <data_dir> <pdf_dir>". For example "python download_pdf.py data_train pdf_train" can be used to download the 25 PDFs in the training set. Similar commands must be run for the development and test sets.
+6) Convert PDFs to json format and assign sentence labels by running "python pdf_to_json.py <input_pdf_dir> <output_json_dir> <data_dir>". For example "python pdf_to_json.py pdf_train json_train data_train" converts the training dataset into the required file format. Similar commands must be run for the development and test sets.
 
 Models
 ------------
