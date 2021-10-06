@@ -12,18 +12,18 @@ The main components of the system are as follows:
 
 1) Download data folders into root project directory from https://drive.google.com/drive/folders/1cknXPeJ_-NLqMGBAj6EXZG5WR3pSHgYN?usp=sharing. These contain information required to assign sentence labels from company PDF reports.
 2) Install poppler-utils library via command line "sudo apt-get install poppler-utils"
-3) Install prerequisites from *data_pre_processing_requirements.txt* in a designated virtual environment and activate the environment. It is important to install the correct version of spacy 2.0.12 in order to parse the PDFs in the correct order. 
+3) Install prerequisites from *data_pre_processing_requirements.txt* in a designated virtual environment and activate the environment. It is important to install the correct version of spacy 2.0.12 in order to parse the PDFs in the correct order. Use commands "conda  create --name pdf_processing python=3.7", "conda activate pdf_processing" and "conda install --file data_pre_processing/data_pre_processing_requirements.txt" followed by "pip install spacy-langdetect==0.1.2".
 4) Run "python -m spacy download en_core_web_sm" in the command line to download the spacy English language package.
-5) Download pdfs for each dataset by running "python download_pdf.py <data_dir> <pdf_dir>". For example "python download_pdf.py data_train pdf_train" can be used to download the 25 PDFs in the training set. Similar commands must be run for the development and test sets.
-6) Convert PDFs to json format and assign sentence labels by running "python pdf_to_json.py <input_pdf_dir> <output_json_dir> <data_dir>". For example "python pdf_to_json.py pdf_train json_train data_train" converts the training dataset into the required file format. Similar commands must be run for the development and test sets.
+5) Download pdfs for each dataset by running "python download_pdf.py <data_dir> <pdf_dir>". For example "python data_pre_processing/download_pdf.py data_train pdf_train" can be used to download the 25 PDFs in the training set. Similar commands must be run for the development and test sets. If certain PDF links are not accessible from python, the user can manually click on them and download the PDFs into the corresponding folder manually. 
+6) Convert PDFs to json format and assign sentence labels by running "python pdf_to_json.py <input_pdf_dir> <output_json_dir> <data_dir>". For example "python data_pre_processing/pdf_to_json.py pdf_train json_train data_train" converts the training dataset into the required file format. Similar commands must be run for the development and test sets.
 
-Models
+Models (Can be used with Colab or on any OS)
 ------------
-If used with Google Colab, notebooks can be run directly as they are. The only requirement is to have the *json_train*, *json_develop* and *json_test* folders in the user's personal Google Drive.
+If used with Google Colab, notebooks can be run directly as they are. The only requirement is to have the *json_train*, *json_develop* and *json_test* folders in the user's Google Drive.
 
 If run on a local machine, please use the following steps:
 
-1) Create a new virtual environment and install dependencies from *model_training_requirements.txt*.
+1) Create a new virtual environment and install dependencies from *model_training_requirements.txt*. Use commands "conda  create --name sustainability python=3.8", "conda activate sustainability", "conda install pytorch==1.7.0 torchvision==0.8.0 torchaudio==0.7.0 cudatoolkit=11.0 -c pytorch", "pip install transformers==4.0.0", "pip install pytorch-crf==0.7.2", "pip install datasets==1.6.0" and "conda install --file models/model_training_requirements.txt".
 2) Make sure that *json_train*, *json_develop* and *json_test* are located in the root project directory alongside the notebooks. 
 3) Activate the virtual environment and run the desired notebook to replicate the experiment results. All base models and their corresponding tokenizers are imported from the open-source HuggingFace library (https://huggingface.co/transformers/index.html) directly into the jupyter notebooks.
 4) Random seed can be adjusted at the beginning of the notebook to ensure replicability of results.
