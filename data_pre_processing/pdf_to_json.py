@@ -142,7 +142,8 @@ def run_convert_reports(input_pdf_dir, output_json_dir, dataset_dir, pdf_metadat
 
     if  dataset_names != pdf_names:
         different_names = set(dataset_names) - set(pdf_names)
-        print(f'Not all pdfs could be downloaded. {different_names} were not found in the pdf directory. Only converting available pdfs. \n')
+        if len(different_names)>0:
+            print(f'Not all pdfs could be downloaded. {different_names} were not found in the pdf directory. Only converting available pdfs. \n')
         dataset_names = list(set(dataset_names).intersection(set(pdf_names)))
         report_paths_names = list(set(report_paths_names).intersection(set(pdf_names)))
         dataset_names.sort()
