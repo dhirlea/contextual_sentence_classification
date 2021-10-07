@@ -13,7 +13,9 @@ The main components of the system are as follows:
 1) Download data folders into root project directory from https://drive.google.com/drive/folders/1cknXPeJ_-NLqMGBAj6EXZG5WR3pSHgYN?usp=sharing. These contain information required to assign sentence labels from company PDF reports.
 2) Install poppler-utils library via command line. Use poppler-utils 0.62.0 on Ubuntu 18.04 or poppler-utils 0.86.1 on Ubuntu 20.04.
 
-    ```sudo apt-get install poppler-utils ```
+    ```
+    sudo apt-get install poppler-utils 
+    ```
 
 3) Install prerequisites from *data_pre_processing_requirements.txt* in a designated virtual environment and activate the environment. It is important to install the correct version of spacy 2.0.12 in order to parse the PDFs in the correct order.
     ```
@@ -23,7 +25,9 @@ The main components of the system are as follows:
     pip install spacy-langdetect==0.1.2
     ```
 4) Download the spacy English language package.
-    ```python -m spacy download en_core_web_sm```
+    ```
+    python -m spacy download en_core_web_sm
+    ```
 5) Download pdfs for each dataset by running "python download_pdf.py <data_dir> <pdf_dir>". If certain PDF links are not accessible from python, the user can manually click on them and download the PDFs into the corresponding folder manually. 
     ```
     python data_pre_processing/download_pdf.py data_train pdf_train
