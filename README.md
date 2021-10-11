@@ -65,7 +65,7 @@ If run on a local machine, please use the following steps:
 4) Random seed can be adjusted at the beginning of the notebook to ensure replicability of results.
 
 The chart below illustrates the machine learning pipeline used for all experiments and follows the structure of the notebooks.
-![alt text](https://github.com/dhirlea/contextual_sentence_classification/blob/main/sustainability_pipeline.png)
+![alt text](https://github.com/dhirlea/contextual_sentence_classification/blob/main/system_pipeline.png)
 
 
 
