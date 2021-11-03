@@ -6,17 +6,65 @@ This repository contains code underlying the ["Contextual Sentence Classificatio
 The code provided in this repository is divided in two parts: *data_pre_processing* and *models*. *data_pre_processing* contains 2 python scripts for downloading a set of 45 company reports, converting these into the required json format and assigning initiatives and SDGs to individual sentences. The code under *models* can be run as jupyter notebooks on a local machine after the project dependencies have been installed or using Google Colab (https://colab.research.google.com). We recommend creating separate virtual environments for *data_pre_processing*  and *models* as they require different versions of python to be installed.
 
 Data Pre-processing (Requires Linux Distribution such as Ubuntu 20.04 or WSL2 with Linux distribution installed)
+
+## Data Setup
 ------------
+#### WINDOWS 10 (Miniconda3, VSCode)
+1) Install prerequisites from *data_pre_processing_requirements.txt* in a designated virtual environment and activate the environment. It is important to install the correct version of spacy 2.0.12 in order to parse the PDFs in the correct order.
+    ```
+    conda  create --name pdf_processing python=3.7 
+    conda activate pdf_processing
+    conda install --file data_pre_processing/data_pre_processing_requirements.txt
+    pip install spacy-langdetect==0.1.2
+    conda install -c conda-forge poppler
+    ```
+2) Download and link the spacy English language package
+    ```
+    python -m spacy download en_core_web_sm
+    ```
+    You will see "_Download successful but linking failed_". Run below as Admin in new Powershell window
+    ```
+    cmd /c mklink /d <YOUR_MINICONDA3_PATH>\envs\pdf_processing\Lib\site-packages\spacy\data\en_core_web_sm <YOUR_MINICONDA3_PATH>\envs\pdf_processing\Lib\site-packages\en_core_web_sm
+    ```
+3) Download data folders into root project directory
+    ```
+    pip install gdown
+    python data_pre_processing/google_drive_downloader.py
+    ```
+   Alternatively, download data folders into root project directory from https://drive.google.com/drive/folders/1cknXPeJ_-NLqMGBAj6EXZG5WR3pSHgYN?usp=sharing. These contain information required to assign sentence labels from company PDF reports.
 
-The main components of the system are as follows:
+4) Download pdfs for each dataset by running "python download_pdf.py <data_dir> <pdf_dir>". If certain PDF links are not accessible from python, the user can manually click on them and download the PDFs into the corresponding folder manually. 
+    ```
+    python data_pre_processing/download_pdf.py data_train pdf_train
+    python data_pre_processing/download_pdf.py data_develop pdf_develop
+    python data_pre_processing/download_pdf.py data_test pdf_test
+    ```
+5) Convert PDFs to json format and assign sentence labels. 
+    ```
+    python data_pre_processing/pdf_to_json.py pdf_train json_train data_train
+    python data_pre_processing/pdf_to_json.py pdf_develop json_develop data_develop
+    python data_pre_processing/pdf_to_json.py pdf_test json_test data_test
+    ```
+6) To clean up run in Powershell / CMD within project directory
+    ```
+    rmdir -r .\data_develop\
+    rmdir -r .\data_test\    
+    rmdir -r .\data_train\ 
+    rmdir -r .\json_develop\ 
+    rmdir -r .\json_test\    
+    rmdir -r .\json_train\ 
+    rmdir -r .\pdf_develop\ 
+    rmdir -r .\pdf_test\    
+    rmdir -r .\pdf_train\
+    ```
 
+#### UBUNTU (20.04)
 1) Download data folders into root project directory from https://drive.google.com/drive/folders/1cknXPeJ_-NLqMGBAj6EXZG5WR3pSHgYN?usp=sharing. These contain information required to assign sentence labels from company PDF reports.
 2) Install poppler-utils library via command line. Use poppler-utils 0.62.0 on Ubuntu 18.04 or poppler-utils 0.86.1 on Ubuntu 20.04.
 
     ```
     sudo apt-get install poppler-utils 
     ```
-
 3) Install prerequisites from *data_pre_processing_requirements.txt* in a designated virtual environment and activate the environment. It is important to install the correct version of spacy 2.0.12 in order to parse the PDFs in the correct order.
     ```
     conda  create --name pdf_processing python=3.7 
@@ -40,7 +88,7 @@ The main components of the system are as follows:
     python data_pre_processing/pdf_to_json.py pdf_develop json_develop data_develop
     python data_pre_processing/pdf_to_json.py pdf_test json_test data_test
     ```
-Models (Can be used with Colab or on any OS)
+## Models Setup (Can be used with Colab or on any OS)
 ------------
 If used with Google Colab, notebooks can be run directly as they are. The only requirement is to have the *json_train*, *json_develop* and *json_test* folders in the user's Google Drive.
 
@@ -56,7 +104,7 @@ If run on a local machine, please use the following steps:
     pip install datasets==1.6.0
     conda install --file models/model_training_requirements.txt
     ```
-2) Make sure that *json_train*, *json_develop* and *json_test* are located in the root project directory alongside the notebooks. 
+2) Make sure that *json_train*, *json_develop* and *json_test* folders are located in the root project directory alongside the notebooks. 
 3) Activate the virtual environment and run the desired notebook to replicate the experiment results. All base models and their corresponding tokenizers are imported from the open-source HuggingFace library (https://huggingface.co/transformers/index.html) directly into the jupyter notebooks.
     ```
     conda activate sustainability
@@ -66,8 +114,6 @@ If run on a local machine, please use the following steps:
 
 The chart below illustrates the machine learning pipeline used for all experiments and follows the structure of the notebooks.
 ![alt text](https://github.com/dhirlea/contextual_sentence_classification/blob/main/system_pipeline.png)
-
-
 
 License
 ------------

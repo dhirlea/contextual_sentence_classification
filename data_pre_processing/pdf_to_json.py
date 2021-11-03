@@ -10,18 +10,21 @@ import tqdm
 import time
 
 import spacy
-from spacy_langdetect import LanguageDetector
 import subprocess
 import pathlib
 
+from spacy_langdetect import LanguageDetector
+from sys import platform
 
 def convert_pdf_to_text(input_path):
     """
     Convert pdf to text
     """
-    result = subprocess.run(["pdftotext", "-q", input_path, "-"], stdout=subprocess.PIPE)
+    if platform == "linux" or platform == "linux2":
+         result = subprocess.run(["pdftotext", "-q", input_path, "-"], stdout=subprocess.PIPE)
+    elif platform == "win32":
+         result = subprocess.run(["pdftotext", "-q", input_path._str, "-"], stdout=subprocess.PIPE)
     return result.stdout.decode("utf-8")
-
 
 nlp = None
 
@@ -217,7 +220,7 @@ def run_convert_reports(input_pdf_dir, output_json_dir, dataset_dir, pdf_metadat
 
         if mapping_flag:
             print(f'Report {report_pdf_path.name} has been mapped successfully \n')
-            with open(output_json_path, 'w') as f:
+            with open(output_json_path, 'w', encoding='utf-8') as f:
                 f.write(json.dumps(output_object, indent=4, ensure_ascii=False))
         else:
             print(f'Report {report_pdf_path.name} was not parsed correctly and cannot be mapped against oficial data. This will be skipped from the mapping process \n')
