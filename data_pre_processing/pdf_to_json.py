@@ -8,6 +8,7 @@ import hashlib
 import collections
 import tqdm
 import time
+import codecs
 
 import spacy
 import subprocess
@@ -94,11 +95,12 @@ def calculate_file_md5(file_path):
     """
     Calculate an md5 fingerprint
     """
+    md5_hash = hashlib.md5()
     with open(file_path, 'rb') as f:
-        data = f.read()    
-        md5_returned = hashlib.md5(data).hexdigest()
-    return md5_returned
-
+        # Read and update hash in chunks of 4K
+        for byte_block in iter(lambda: f.read(4096),b""):
+            md5_hash.update(byte_block)
+    return md5_hash.hexdigest()
 
 def get_pdf_metadata(pdf_file_path):
     extractable_keys = ["Title", "Author", "Subject", "CreationDate"]
@@ -207,8 +209,9 @@ def run_convert_reports(input_pdf_dir, output_json_dir, dataset_dir, pdf_metadat
         output_object["time_downloaded"] = str(time.time())
         output_object.update(predicted_pdf_metadata)
         output_object["predicted_language"] = report_language
-        with open(dataset_dir +'/'+ report_name, 'r', encoding='utf-8') as public_file:
-            report_json = json.load(public_file)
+        with open(dataset_dir +'/'+ report_name, 'rb') as public_file:
+            reader = codecs.getreader("utf-8")
+            report_json = json.load(reader(public_file))
             mapped_sentences = [report_json["sentence_to_initiative_mapping"][str(i)] if str(i) in report_json["sentence_to_initiative_mapping"].keys() else [] for i in range(report_json["num_sentences"])]
             sdg1_list = [report_json["intiatives"][initiative_id[0]][0] if len(initiative_id) > 0 else None for initiative_id in mapped_sentences]
             sdg2_list = [report_json["intiatives"][initiative_id[0]][1] if len(initiative_id) > 0 else None for initiative_id in mapped_sentences]

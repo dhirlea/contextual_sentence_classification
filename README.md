@@ -9,14 +9,49 @@ Data Pre-processing (Requires Linux Distribution such as Ubuntu 20.04 or WSL2 wi
 
 ## Data Setup
 ------------
-#### WINDOWS 10 (Miniconda3, VSCode)
-1) Install prerequisites from *data_pre_processing_requirements.txt* in a designated virtual environment and activate the environment. It is important to install the correct version of spacy 2.0.12 in order to parse the PDFs in the correct order.
+#### UBUNTU (20.04LTS) / WSL
+1) Download data folders into root project directory from https://drive.google.com/drive/folders/1cknXPeJ_-NLqMGBAj6EXZG5WR3pSHgYN?usp=sharing. These contain information required to assign sentence labels from company PDF reports.
+2) Install poppler-utils library via command line. Use poppler-utils 0.62.0 on Ubuntu 18.04 or poppler-utils 0.86.1 on Ubuntu 20.04.
+
     ```
-    conda  create --name pdf_processing python=3.7 
+    sudo apt-get update
+    sudo apt-get install poppler-utils 
+    ```
+3) Install prerequisites from *data_pre_processing_requirements.txt* in a designated virtual environment and activate the environment. It is important to install the correct version of spacy 2.0.12 in order to parse the PDFs in the correct order.
+    ```
+    conda create --name pdf_processing python=3.7 
     conda activate pdf_processing
     conda install --file data_pre_processing/data_pre_processing_requirements.txt
     pip install spacy-langdetect==0.1.2
-    conda install -c conda-forge poppler
+    ```
+4) Download the spacy English language package.
+    ```
+    python -m spacy download en_core_web_sm
+    ```
+5) Download pdfs for each dataset by running "python download_pdf.py <data_dir> <pdf_dir>". If certain PDF links are not accessible from python, the user can manually click on them and download the PDFs into the corresponding folder manually. 
+    ```
+    python data_pre_processing/download_pdf.py data_train pdf_train
+    python data_pre_processing/download_pdf.py data_develop pdf_develop
+    python data_pre_processing/download_pdf.py data_test pdf_test
+    ```
+6) Convert PDFs to json format and assign sentence labels. 
+    ```
+    python data_pre_processing/pdf_to_json.py pdf_train json_train data_train
+    python data_pre_processing/pdf_to_json.py pdf_develop json_develop data_develop
+    python data_pre_processing/pdf_to_json.py pdf_test json_test data_test
+    ```
+
+#### (!UNDER REVIEW!) WINDOWS 10 (Miniconda3, VSCode) 
+1) Install prerequisites from *data_pre_processing_requirements.txt* in a designated virtual environment and activate the environment. It is important to install the correct version of spacy 2.0.12 in order to parse the PDFs in the correct order.
+    ```
+    conda create --name pdf_processing python=3.7
+    conda activate pdf_processing
+    conda install -c anaconda urllib3
+    conda install python==3.7.0
+    conda install spacy==2.0.12
+    pip install spacy-langdetect==0.1.2
+    conda config --add channels conda-forge
+    ### need poppler-utils version ###
     ```
 2) Download and link the spacy English language package
     ```
@@ -56,37 +91,6 @@ Data Pre-processing (Requires Linux Distribution such as Ubuntu 20.04 or WSL2 wi
     rmdir -r .\pdf_develop\ 
     rmdir -r .\pdf_test\    
     rmdir -r .\pdf_train\
-    ```
-
-#### UBUNTU (20.04)
-1) Download data folders into root project directory from https://drive.google.com/drive/folders/1cknXPeJ_-NLqMGBAj6EXZG5WR3pSHgYN?usp=sharing. These contain information required to assign sentence labels from company PDF reports.
-2) Install poppler-utils library via command line. Use poppler-utils 0.62.0 on Ubuntu 18.04 or poppler-utils 0.86.1 on Ubuntu 20.04.
-
-    ```
-    sudo apt-get install poppler-utils 
-    ```
-3) Install prerequisites from *data_pre_processing_requirements.txt* in a designated virtual environment and activate the environment. It is important to install the correct version of spacy 2.0.12 in order to parse the PDFs in the correct order.
-    ```
-    conda  create --name pdf_processing python=3.7 
-    conda activate pdf_processing
-    conda install --file data_pre_processing/data_pre_processing_requirements.txt
-    pip install spacy-langdetect==0.1.2
-    ```
-4) Download the spacy English language package.
-    ```
-    python -m spacy download en_core_web_sm
-    ```
-5) Download pdfs for each dataset by running "python download_pdf.py <data_dir> <pdf_dir>". If certain PDF links are not accessible from python, the user can manually click on them and download the PDFs into the corresponding folder manually. 
-    ```
-    python data_pre_processing/download_pdf.py data_train pdf_train
-    python data_pre_processing/download_pdf.py data_develop pdf_develop
-    python data_pre_processing/download_pdf.py data_test pdf_test
-    ```
-6) Convert PDFs to json format and assign sentence labels. 
-    ```
-    python data_pre_processing/pdf_to_json.py pdf_train json_train data_train
-    python data_pre_processing/pdf_to_json.py pdf_develop json_develop data_develop
-    python data_pre_processing/pdf_to_json.py pdf_test json_test data_test
     ```
 ## Models Setup (Can be used with Colab or on any OS)
 ------------
