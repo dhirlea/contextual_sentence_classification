@@ -217,7 +217,7 @@ def run_convert_reports(input_pdf_dir, output_json_dir, dataset_dir, pdf_metadat
 
         if mapping_flag:
             print(f'Report {report_pdf_path.name} has been mapped successfully \n')
-            with open(output_json_path, 'w') as f:
+            with open(output_json_path, 'w', encoding='utf-8') as f:
                 f.write(json.dumps(output_object, indent=4, ensure_ascii=False))
         else:
             print(f'Report {report_pdf_path.name} was not parsed correctly and cannot be mapped against oficial data. This will be skipped from the mapping process \n')

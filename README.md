@@ -36,17 +36,18 @@ The main components of the system are as follows:
     ```
 6) Convert PDFs to json format and assign sentence labels. 
     ```
-    python data_pre_processing/pdf_to_json.py pdf_train json_train data_train
-    python data_pre_processing/pdf_to_json.py pdf_develop json_develop data_develop
-    python data_pre_processing/pdf_to_json.py pdf_test json_test data_test
+    python data_pre_processing/pdf_to_json.py pdf_train models/json_train data_train
+    python data_pre_processing/pdf_to_json.py pdf_develop models/json_develop data_develop
+    python data_pre_processing/pdf_to_json.py pdf_test models/json_test data_test
     ```
 Models (Can be used with Colab or on any OS)
 ------------
 If used with Google Colab, notebooks can be run directly as they are. The only requirement is to have the *json_train*, *json_develop* and *json_test* folders in the user's Google Drive.
 
-If run on a local machine, please use the following steps:
+If run on a local machine, please use the following steps :
 
-1) Create a new virtual environment and install dependencies from *model_training_requirements.txt*. 
+1) Delete the 3 Google Colab specific cells specifically marked at the beginning of each notebook.
+2) Create a new virtual environment and install dependencies from *model_training_requirements.txt*. 
     ```
     conda  create --name sustainability python=3.8
     conda activate sustainability
@@ -56,13 +57,13 @@ If run on a local machine, please use the following steps:
     pip install datasets==1.6.0
     conda install --file models/model_training_requirements.txt
     ```
-2) Make sure that *json_train*, *json_develop* and *json_test* are located in the root project directory alongside the notebooks. 
-3) Activate the virtual environment and run the desired notebook to replicate the experiment results. All base models and their corresponding tokenizers are imported from the open-source HuggingFace library (https://huggingface.co/transformers/index.html) directly into the jupyter notebooks.
+3) Make sure that *json_train*, *json_develop* and *json_test* are located in the root project directory alongside the notebooks. 
+4) Activate the virtual environment and run the desired notebook to replicate the experiment results. All base models and their corresponding tokenizers are imported from the open-source HuggingFace library (https://huggingface.co/transformers/index.html) directly into the jupyter notebooks.
     ```
     conda activate sustainability
     jupyter lab
     ```
-4) Random seed can be adjusted at the beginning of the notebook to ensure replicability of results.
+5) Random seed can be adjusted at the beginning of the notebook to ensure replicability of results.
 
 The chart below illustrates the machine learning pipeline used for all experiments and follows the structure of the notebooks.
 ![alt text](https://github.com/dhirlea/contextual_sentence_classification/blob/main/system_pipeline.png)
