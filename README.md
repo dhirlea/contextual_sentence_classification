@@ -1,7 +1,7 @@
 Project Overview
 ========
 
-This repository contains code underlying the ["Contextual Sentence Classification:Detecting Sustainability Initiatives in Company Reports"](https://arxiv.org/abs/2110.03727) paper written by Dan Hirlea, Dr Marek Rei and Dr Christopher Bryant. The aim of this project is to detect the precise text span of sustainability initiatives in company reports as defined by the Leonardo Centre for Sustainable Business. A company sustainability initiative is defined as a practical activity or set of related activities that a firm performs to tackle a societal issue.
+This repository contains code underlying the ["Contextual Sentence Classification:Detecting Sustainability Initiatives in Company Reports"](https://arxiv.org/abs/2110.03727) paper. The aim of this project is to detect the precise text span of sustainability initiatives in company reports as defined by the Leonardo Centre for Sustainable Business. A company sustainability initiative is defined as a practical activity or set of related activities that a firm performs to tackle a societal issue.
 
 The code provided in this repository is divided in two parts: *data_pre_processing* and *models*. *data_pre_processing* contains 2 python scripts for downloading a set of 45 company reports, converting these into the required json format and assigning initiatives and SDGs to individual sentences. The code under *models* can be run as jupyter notebooks on a local machine after the project dependencies have been installed or using Google Colab (https://colab.research.google.com). We recommend creating separate virtual environments for *data_pre_processing*  and *models* as they require different versions of python to be installed.
 
