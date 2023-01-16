@@ -36,6 +36,7 @@ The main components of the system are as follows:
 3) Install poppler-utils library via command line. Use poppler-utils 0.62.0 on Ubuntu 18.04 or poppler-utils 0.86.1 on Ubuntu 20.04.
 
     ```
+    sudo apt-get update
     sudo apt-get install poppler-utils 
     ```
 
