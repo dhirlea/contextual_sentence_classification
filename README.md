@@ -11,10 +11,34 @@ Data Pre-processing (Requires Linux Distribution such as Ubuntu 20.04 or WSL2 wi
 The main components of the system are as follows:
 
 1) Download data folders into root project directory from https://drive.google.com/drive/folders/1cknXPeJ_-NLqMGBAj6EXZG5WR3pSHgYN?usp=sharing. These contain information required to assign sentence labels from company PDF reports.
-2) Install poppler-utils library via command line. Use poppler-utils 0.62.0 on Ubuntu 18.04 or poppler-utils 0.86.1 on Ubuntu 20.04.
+
+2) Windows users ONLY 
+    ```
+    wsl --install -d Ubuntu-20.04
+    ```
+    Restart system for Ubuntu distribution to be recognised. 
 
     ```
+    dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+    ```
+    
+    Install https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi
+
+    ```
+    wsl --set-default-version 2
+    wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+    bash Miniconda3-latest-Linux-x86_64.sh
+    conda init
+    ```
+
+    Restart the shell for changes to take effect.
+
+3) Install poppler-utils library via command line. Use poppler-utils 0.62.0 on Ubuntu 18.04 or poppler-utils 0.86.1 on Ubuntu 20.04.
+
+    ```
+    sudo apt-get update
     sudo apt-get install poppler-utils 
+    pdftotext -v
     ```
 
 3) Install prerequisites from *data_pre_processing_requirements.txt* in a designated virtual environment and activate the environment. It is important to install the correct version of spacy 2.0.12 in order to parse the PDFs in the correct order.
