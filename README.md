@@ -38,6 +38,7 @@ The main components of the system are as follows:
     ```
     sudo apt-get update
     sudo apt-get install poppler-utils 
+    pdftotext -v
     ```
 
 3) Install prerequisites from *data_pre_processing_requirements.txt* in a designated virtual environment and activate the environment. It is important to install the correct version of spacy 2.0.12 in order to parse the PDFs in the correct order.
